@@ -1,0 +1,298 @@
+
+sh  autogen.sh
+./configure
+
+click this to get the crash file.
+when I run with the command " ./src/main crash " ,I get the message:
+
+root@9a007102b63c:/home/data/crash_collect/harfbuzz_main# ./harfbuzz/src/main crash
+Opened font file crash: 5712 bytes long
+OpenType font with TrueType outlines
+1 font(s) found in file
+Font 0 of 1:
+  16 table(s) found in font
+  Table  0 of 16: COLR (0x00000714+0x0000002a)
+  Table  1 of 16: CPAL (0x00000740+0x00000ed6)
+  Table  2 of 16: GDEF (0x00001618+0x00000016)
+    Has glyph classes
+    Has no mark attachment types
+    Has no attach points
+    Has no lig carets
+    Has no mark sets
+  Table  3 of 16: GSUB (0x00001630+0x00000020)
+    4 script(s) found in table
+    Script  0 of  4:
+      3 language system(s) found in script
+      Default Language System
+        Required feature index: 0
+        0 feature(s) found in language system
+      Language System  0 of  3:
+        Required feature index: 0
+        0 feature(s) found in language system
+      Language System  1 of  3: T
+        Required feature index: 0
+        0 feature(s) found in language system
+      Language System  2 of  3:
+Segmentation fault (core dumped)
+root@9a007102b63c:/home/data/crash_collect/harfbuzz_main#
+
+I use the valgrind to get the detail of crash:
+
+
+==520103== Memcheck, a memory error detector
+==520103== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==520103== Using Valgrind-3.13.0 and LibVEX; rerun with -h for copyright info
+==520103== Command: ./harfbuzz/src/main crashes/id:000009,sig:11,src:000000,op:int16,pos:5684,val:be:+1024
+==520103== Parent PID: 412700
+==520103== 
+==525633== 
+==525633== HEAP SUMMARY:
+==525633==     in use at exit: 41,588 bytes in 516 blocks
+==525633==   total heap usage: 687 allocs, 171 frees, 61,576 bytes allocated
+==525633== 
+==525633== 2 bytes in 1 blocks are definitely lost in loss record 15 of 318
+==525633==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==525633==    by 0x18F0DD: xmalloc (in /bin/bash)
+==525633==    by 0x188B3A: set_default_locale (in /bin/bash)
+==525633==    by 0x137E66: main (in /bin/bash)
+==525633== 
+==525633== 24 bytes in 1 blocks are definitely lost in loss record 138 of 318
+==525633==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==525633==    by 0x18F0DD: xmalloc (in /bin/bash)
+==525633==    by 0x14DA89: execute_command_internal (in /bin/bash)
+==525633==    by 0x1958E7: parse_and_execute (in /bin/bash)
+==525633==    by 0x169C49: command_substitute (in /bin/bash)
+==525633==    by 0x170140: ??? (in /bin/bash)
+==525633==    by 0x17136B: ??? (in /bin/bash)
+==525633==    by 0x17142B: expand_word_unsplit (in /bin/bash)
+==525633==    by 0x14E2C5: execute_command_internal (in /bin/bash)
+==525633==    by 0x14FBF1: execute_command (in /bin/bash)
+==525633==    by 0x14E66A: execute_command_internal (in /bin/bash)
+==525633==    by 0x14FBF1: execute_command (in /bin/bash)
+==525633== 
+==525633== LEAK SUMMARY:
+==525633==    definitely lost: 26 bytes in 2 blocks
+==525633==    indirectly lost: 0 bytes in 0 blocks
+==525633==      possibly lost: 0 bytes in 0 blocks
+==525633==    still reachable: 41,562 bytes in 514 blocks
+==525633==         suppressed: 0 bytes in 0 blocks
+==525633== Reachable blocks (those to which a pointer was found) are not shown.
+==525633== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==525633== 
+==525633== For counts of detected and suppressed errors, rerun with: -v
+==525633== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==525483== 
+==525483== HEAP SUMMARY:
+==525483==     in use at exit: 41,202 bytes in 500 blocks
+==525483==   total heap usage: 675 allocs, 175 frees, 57,220 bytes allocated
+==525483== 
+==525483== 2 bytes in 1 blocks are definitely lost in loss record 16 of 303
+==525483==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==525483==    by 0x18F0DD: xmalloc (in /bin/bash)
+==525483==    by 0x188B3A: set_default_locale (in /bin/bash)
+==525483==    by 0x137E66: main (in /bin/bash)
+==525483== 
+==525483== LEAK SUMMARY:
+==525483==    definitely lost: 2 bytes in 1 blocks
+==525483==    indirectly lost: 0 bytes in 0 blocks
+==525483==      possibly lost: 0 bytes in 0 blocks
+==525483==    still reachable: 41,200 bytes in 499 blocks
+==525483==         suppressed: 0 bytes in 0 blocks
+==525483== Reachable blocks (those to which a pointer was found) are not shown.
+==525483== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==525483== 
+==525483== For counts of detected and suppressed errors, rerun with: -v
+==525483== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==526556== 
+==526556== HEAP SUMMARY:
+==526556==     in use at exit: 40,266 bytes in 473 blocks
+==526556==   total heap usage: 801 allocs, 328 frees, 64,076 bytes allocated
+==526556== 
+==526556== 2 bytes in 1 blocks are definitely lost in loss record 16 of 297
+==526556==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==526556==    by 0x18F0DD: xmalloc (in /bin/bash)
+==526556==    by 0x188B3A: set_default_locale (in /bin/bash)
+==526556==    by 0x137E66: main (in /bin/bash)
+==526556== 
+==526556== 34 bytes in 1 blocks are definitely lost in loss record 224 of 297
+==526556==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==526556==    by 0x18F0DD: xmalloc (in /bin/bash)
+==526556==    by 0x14DA89: execute_command_internal (in /bin/bash)
+==526556==    by 0x14FBF1: execute_command (in /bin/bash)
+==526556==    by 0x14F13C: execute_command_internal (in /bin/bash)
+==526556==    by 0x14FBF1: execute_command (in /bin/bash)
+==526556==    by 0x13A273: reader_loop (in /bin/bash)
+==526556==    by 0x138C7E: main (in /bin/bash)
+==526556== 
+==526556== LEAK SUMMARY:
+==526556==    definitely lost: 36 bytes in 2 blocks
+==526556==    indirectly lost: 0 bytes in 0 blocks
+==526556==      possibly lost: 0 bytes in 0 blocks
+==526556==    still reachable: 40,230 bytes in 471 blocks
+==526556==         suppressed: 0 bytes in 0 blocks
+==526556== Reachable blocks (those to which a pointer was found) are not shown.
+==526556== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==526556== 
+==526556== For counts of detected and suppressed errors, rerun with: -v
+==526556== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==527636== 
+==527636== HEAP SUMMARY:
+==527636==     in use at exit: 76,485 bytes in 2,073 blocks
+==527636==   total heap usage: 3,271 allocs, 1,198 frees, 139,667 bytes allocated
+==527636== 
+==527636== 2 bytes in 1 blocks are definitely lost in loss record 18 of 796
+==527636==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==527636==    by 0x18F0DD: xmalloc (in /bin/bash)
+==527636==    by 0x188B3A: set_default_locale (in /bin/bash)
+==527636==    by 0x137E66: main (in /bin/bash)
+==527636== 
+==527636== 14 bytes in 1 blocks are definitely lost in loss record 128 of 796
+==527636==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==527636==    by 0x18F0DD: xmalloc (in /bin/bash)
+==527636==    by 0x13573B: ??? (in /bin/bash)
+==527636==    by 0x14E0D7: execute_command_internal (in /bin/bash)
+==527636==    by 0x136CFD: ??? (in /bin/bash)
+==527636==    by 0x14F1BC: execute_command_internal (in /bin/bash)
+==527636==    by 0x1958E7: parse_and_execute (in /bin/bash)
+==527636==    by 0x169C49: command_substitute (in /bin/bash)
+==527636==    by 0x170140: ??? (in /bin/bash)
+==527636==    by 0x17136B: ??? (in /bin/bash)
+==527636==    by 0x1714C9: expand_string_assignment (in /bin/bash)
+==527636==    by 0x16A7AD: ??? (in /bin/bash)
+==527636== 
+==527636== LEAK SUMMARY:
+==527636==    definitely lost: 16 bytes in 2 blocks
+==527636==    indirectly lost: 0 bytes in 0 blocks
+==527636==      possibly lost: 0 bytes in 0 blocks
+==527636==    still reachable: 76,469 bytes in 2,071 blocks
+==527636==         suppressed: 0 bytes in 0 blocks
+==527636== Reachable blocks (those to which a pointer was found) are not shown.
+==527636== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==527636== 
+==527636== For counts of detected and suppressed errors, rerun with: -v
+==527636== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==527473== 
+==527473== HEAP SUMMARY:
+==527473==     in use at exit: 75,994 bytes in 2,053 blocks
+==527473==   total heap usage: 3,264 allocs, 1,211 frees, 135,222 bytes allocated
+==527473== 
+==527473== 2 bytes in 1 blocks are definitely lost in loss record 18 of 781
+==527473==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==527473==    by 0x18F0DD: xmalloc (in /bin/bash)
+==527473==    by 0x188B3A: set_default_locale (in /bin/bash)
+==527473==    by 0x137E66: main (in /bin/bash)
+==527473== 
+==527473== LEAK SUMMARY:
+==527473==    definitely lost: 2 bytes in 1 blocks
+==527473==    indirectly lost: 0 bytes in 0 blocks
+==527473==      possibly lost: 0 bytes in 0 blocks
+==527473==    still reachable: 75,992 bytes in 2,052 blocks
+==527473==         suppressed: 0 bytes in 0 blocks
+==527473== Reachable blocks (those to which a pointer was found) are not shown.
+==527473== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==527473== 
+==527473== For counts of detected and suppressed errors, rerun with: -v
+==527473== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==528214== 
+==528214== HEAP SUMMARY:
+==528214==     in use at exit: 76,079 bytes in 2,056 blocks
+==528214==   total heap usage: 3,324 allocs, 1,268 frees, 137,318 bytes allocated
+==528214== 
+==528214== 2 bytes in 1 blocks are definitely lost in loss record 18 of 784
+==528214==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==528214==    by 0x18F0DD: xmalloc (in /bin/bash)
+==528214==    by 0x188B3A: set_default_locale (in /bin/bash)
+==528214==    by 0x137E66: main (in /bin/bash)
+==528214== 
+==528214== LEAK SUMMARY:
+==528214==    definitely lost: 2 bytes in 1 blocks
+==528214==    indirectly lost: 0 bytes in 0 blocks
+==528214==      possibly lost: 0 bytes in 0 blocks
+==528214==    still reachable: 76,077 bytes in 2,055 blocks
+==528214==         suppressed: 0 bytes in 0 blocks
+==528214== Reachable blocks (those to which a pointer was found) are not shown.
+==528214== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==528214== 
+==528214== For counts of detected and suppressed errors, rerun with: -v
+==528214== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==528762== 
+==528762== HEAP SUMMARY:
+==528762==     in use at exit: 76,032 bytes in 2,056 blocks
+==528762==   total heap usage: 3,430 allocs, 1,374 frees, 144,520 bytes allocated
+==528762== 
+==528762== 2 bytes in 1 blocks are definitely lost in loss record 19 of 796
+==528762==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==528762==    by 0x18F0DD: xmalloc (in /bin/bash)
+==528762==    by 0x188B3A: set_default_locale (in /bin/bash)
+==528762==    by 0x137E66: main (in /bin/bash)
+==528762== 
+==528762== LEAK SUMMARY:
+==528762==    definitely lost: 2 bytes in 1 blocks
+==528762==    indirectly lost: 0 bytes in 0 blocks
+==528762==      possibly lost: 0 bytes in 0 blocks
+==528762==    still reachable: 76,030 bytes in 2,055 blocks
+==528762==         suppressed: 0 bytes in 0 blocks
+==528762== Reachable blocks (those to which a pointer was found) are not shown.
+==528762== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==528762== 
+==528762== For counts of detected and suppressed errors, rerun with: -v
+==528762== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==529355== 
+==529355== HEAP SUMMARY:
+==529355==     in use at exit: 77,682 bytes in 2,094 blocks
+==529355==   total heap usage: 3,613 allocs, 1,519 frees, 159,406 bytes allocated
+==529355== 
+==529355== 2 bytes in 1 blocks are definitely lost in loss record 20 of 806
+==529355==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==529355==    by 0x18F0DD: xmalloc (in /bin/bash)
+==529355==    by 0x188B3A: set_default_locale (in /bin/bash)
+==529355==    by 0x137E66: main (in /bin/bash)
+==529355== 
+==529355== 25 bytes in 1 blocks are definitely lost in loss record 291 of 806
+==529355==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==529355==    by 0x18F0DD: xmalloc (in /bin/bash)
+==529355==    by 0x13573B: ??? (in /bin/bash)
+==529355==    by 0x14E0D7: execute_command_internal (in /bin/bash)
+==529355==    by 0x136CFD: ??? (in /bin/bash)
+==529355==    by 0x14F1BC: execute_command_internal (in /bin/bash)
+==529355==    by 0x1958E7: parse_and_execute (in /bin/bash)
+==529355==    by 0x169C49: command_substitute (in /bin/bash)
+==529355==    by 0x170140: ??? (in /bin/bash)
+==529355==    by 0x17136B: ??? (in /bin/bash)
+==529355==    by 0x1714C9: expand_string_assignment (in /bin/bash)
+==529355==    by 0x16A7AD: ??? (in /bin/bash)
+==529355== 
+==529355== LEAK SUMMARY:
+==529355==    definitely lost: 27 bytes in 2 blocks
+==529355==    indirectly lost: 0 bytes in 0 blocks
+==529355==      possibly lost: 0 bytes in 0 blocks
+==529355==    still reachable: 77,655 bytes in 2,092 blocks
+==529355==         suppressed: 0 bytes in 0 blocks
+==529355== Reachable blocks (those to which a pointer was found) are not shown.
+==529355== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==529355== 
+==529355== For counts of detected and suppressed errors, rerun with: -v
+==529355== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==529213== 
+==529213== HEAP SUMMARY:
+==529213==     in use at exit: 77,077 bytes in 2,074 blocks
+==529213==   total heap usage: 3,604 allocs, 1,530 frees, 153,383 bytes allocated
+==529213== 
+==529213== 2 bytes in 1 blocks are definitely lost in loss record 19 of 791
+==529213==    at 0x4C31B0F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==529213==    by 0x18F0DD: xmalloc (in /bin/bash)
+==529213==    by 0x188B3A: set_default_locale (in /bin/bash)
+==529213==    by 0x137E66: main (in /bin/bash)
+==529213== 
+==529213== LEAK SUMMARY:
+==529213==    definitely lost: 2 bytes in 1 blocks
+==529213==    indirectly lost: 0 bytes in 0 blocks
+==529213==      possibly lost: 0 bytes in 0 blocks
+==529213==    still reachable: 77,075 bytes in 2,073 blocks
+==529213==         suppressed: 0 bytes in 0 blocks
+==529213== Reachable blocks (those to which a pointer was found) are not shown.
+==529213== To see them, rerun with: --leak-check=full --show-leak-kinds=all
+==529213== 
+==529213== For counts of detected and suppressed errors, rerun with: -v
+==529213== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+
