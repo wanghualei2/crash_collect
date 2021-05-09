@@ -1,0 +1,9 @@
+root@9a007102b63c:/home/data/crash_collect/font_forge# ./fontforge/build/bin/fontforge -script test.pe  crashes/id\:000000\,sig\:11\,src\:000000\,op\:change-havoc\,rep\:64\,diff_start\:9\,diff_len\:491 A
+Copyright (c) 2000-2021. See AUTHORS for Contributors.
+ License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+ with many parts BSD <http://fontforge.org/license.html>. Please read LICENSE.
+ Version: 20201107
+ Based on sources from 2021-05-07 11:15 UTC-ML-D-GDK3.
+ Based on source from git with hash: a5dedb4010cd49a5fcfaeed5d188dd7942294005
+The following table(s) in the font have been ignored by FontForge
+Segmentation fault (core dumped)

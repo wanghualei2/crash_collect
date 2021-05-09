@@ -1,0 +1,1 @@
+fontforge/build/bin/fontforge -script test.pe crash A
