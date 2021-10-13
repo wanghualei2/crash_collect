@@ -1,0 +1,33 @@
+Hello,I found a issue with your code(testhtmlcss)
+
+    when run with command line(./testhtmlcss --html test.html) and with Vulnerability detector tool ASAN
+    I could get the message:
+
+    ==2423395==ERROR: LeakSanitizer: detected memory leaks
+
+    Direct leak of 1280 byte(s) in 5 object(s) allocated from:
+    #0 0x7f2fb0cd2961 in realloc (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x98961)
+    #1 0x40fc89 in hc_create_props /home/software/htmlcss/css-compute.c:2666
+    #2 0x40fc89 in hcNodeComputeCSSProperties /home/software/htmlcss/css-compute.c:1854
+
+        Direct leak of 160 byte(s) in 5 object(s) allocated from:
+    #0 0x7f2fb0cd279a in __interceptor_calloc (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x9879a)
+    #1 0x43b98a in hcDictNew /home/software/htmlcss/dict.c:161
+
+        Direct leak of 160 byte(s) in 5 object(s) allocated from:
+    #0 0x7f2fb0cd279a in __interceptor_calloc (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x9879a)
+    #1 0x43b121 in hcDictCopy /home/software/htmlcss/dict.c:59
+
+        Indirect leak of 384 byte(s) in 5 object(s) allocated from:
+    #0 0x7f2fb0cd2961 in realloc (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x98961)
+    #1 0x43bed4 in hcDictSetKeyValue /home/software/htmlcss/dict.c:237
+
+        Indirect leak of 224 byte(s) in 5 object(s) allocated from:
+    #0 0x7f2fb0cd279a in __interceptor_calloc (/usr/lib/x86_64-linux-gnu/libasan.so.2+0x9879a)
+    #1 0x43b26c in hcDictCopy /home/software/htmlcss/dict.c:66
+
+        SUMMARY: AddressSanitizer: 2208 byte(s) leaked in 25 allocation(s).
+
+
+    you can click this to get test.html
+
